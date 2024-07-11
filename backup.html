@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parallel Desktop 19激活码获取</title>
+<style>
+  body {
+    font-family: 'San Francisco', sans-serif;
+    background-color: #f5f5f7;
+    color: #363636;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d2d2d7;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #005ea6;
+  }
+  
+  #result {
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+  #logo {
+    max-width: 220px;
+    height: auto;
+    margin-bottom: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="pl-logo-dk.png" alt="Parallel Desktop Logo" id="logo">
+  <h1>Parallel Desktop 19激活码获取</h1>
+  <input type="text" id="serialNumber" placeholder="请输入序列号">
+  <button onclick="calculateAndDisplay()">确定</button>
+  <div id="result"></div>
+  <p id="message" style="color: red; display: none;"></p>
+</div>
 
+<script>
+function calculateAndDisplay() {
+  // 获取输入框的值
+  const serialInput = document.getElementById('serialNumber').value;
+
+  // 检查输入框是否为空
+  if (!serialInput.trim()) {
+    // 如果输入框为空，显示警告信息
+    document.getElementById('message').innerText = '您还没有输入序列号';
+    document.getElementById('message').style.display = 'block';
+    return;
+  } else {
+    // 隐藏警告信息
+    document.getElementById('message').style.display = 'none';
+  }
+  // 计算激活码
+  const today = new Date();
+  const day = today.getDate();
+  const result = day * 1024;
+  
+  // 显示结果
+  document.getElementById('result').innerText = `您的激活码是: ${result}`;
+}
+</script>
+</body>
+</html>
