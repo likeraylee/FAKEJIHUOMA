@@ -55,6 +55,12 @@
     font-size: 1.2em;
     margin-top: 20px;
   }
+  
+  #message {
+    color: red;
+    margin-top: 10px;
+    display: none;
+  }
   #logo {
     max-width: 220px;
     height: auto;
@@ -62,39 +68,46 @@
   }
 </style>
 </head>
-<body>
-<div class="container">
-  <img src="pl-logo-dk.png" alt="Parallel Desktop Logo" id="logo">
-  <h1>Parallel Desktop 19激活码获取</h1>
-  <input type="text" id="serialNumber" placeholder="请输入序列号">
-  <button onclick="calculateAndDisplay()">确定</button>
-  <div id="result"></div>
-  <p id="message" style="color: red; display: none;"></p>
-</div>
+  <body>
+  <div class="container">
+    <img src="pl-logo-dk.png" alt="Parallel Desktop Logo" id="logo">
+    <h1>Parallel Desktop 19激活码获取</h1>
+    <input type="text" id="uuidInput" placeholder="请输入电脑的UUID">
+    <button onclick="calculateActivationCode()">获取激活码</button>
+    <div id="result"></div>
+    <p id="message" style="color: red; display: none;"></p>
+  </div>
 
-<script>
-function calculateAndDisplay() {
-  // 获取输入框的值
-  const serialInput = document.getElementById('serialNumber').value;
+  <script>
+  function calculateActivationCode() {
+    const uuidInput = document.getElementById('uuidInput').value.trim();
 
-  // 检查输入框是否为空
-  if (!serialInput.trim()) {
-    // 如果输入框为空，显示警告信息
-    document.getElementById('message').innerText = '您还没有输入序列号';
-    document.getElementById('message').style.display = 'block';
-    return;
-  } else {
-    // 隐藏警告信息
-    document.getElementById('message').style.display = 'none';
+    if (!uuidInput) {
+      document.getElementById('message').innerText = '您还没有输入UUID';
+      document.getElementById('message').style.display = 'block';
+      return;
+    }
+
+    // 使用 SubtleCrypto API 生成哈希值
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(uuidInput))
+      .then(hashBuffer => {
+        // 将哈希值转换为十六进制字符串
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+        // 取哈希值的前6位字符
+        const activationCode = hashHex.substring(0, 6);
+
+        // 显示结果
+        document.getElementById('result').innerText = `您的PD激活码：${activationCode}`;
+        document.getElementById('message').style.display = 'none';
+      })
+      .catch(error => {
+        console.error('Hash calculation failed:', error);
+        document.getElementById('message').innerText = '激活码获取失败';
+        document.getElementById('message').style.display = 'block';
+      });
   }
-  // 计算激活码
-  const today = new Date();
-  const day = today.getDate();
-  const result = day * 1024;
-  
-  // 显示结果
-  document.getElementById('result').innerText = `您的激活码是: ${result}`;
-}
-</script>
-</body>
+  </script>
+  </body>
 </html>
