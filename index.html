@@ -83,10 +83,17 @@
   function calculateActivationCode() {
     const uuidInput = document.getElementById('uuidInput').value.trim();
 
+    // UUID正则表达式
+    const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+
     if (!uuidInput) {
-      document.getElementById('message').innerText = '您还没有输入UUID';
-      document.getElementById('message').style.display = 'block';
-      return;
+        document.getElementById('message').innerText = '您还没有输入UUID';
+        document.getElementById('message').style.display = 'block';
+        return;
+    } else if (!uuidRegex.test(uuidInput)) {
+        document.getElementById('message').innerText = 'uuid格式错误';
+        document.getElementById('message').style.display = 'block';
+        return;
     }
 
     // 使用 SubtleCrypto API 生成哈希值
