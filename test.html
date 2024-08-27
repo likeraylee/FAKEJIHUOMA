@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Formatting Input</title>
+<script>
+function formatNumber() {
+    var input = document.getElementById('numberInput');
+    var value = input.value;
+    // 正则表达式匹配数字，忽略非数字字符
+    var formattedValue = value.replace(/[^0-9]/g, '');
+    // 将数字按照每三位添加逗号分隔
+    formattedValue = formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // 更新输入框的显示值
+    input.value = formattedValue;
+}
+</script>
+</head>
+<body>
+
+<label for="numberInput">请输入数字看效果:</label>
+<input type="text" id="numberInput" oninput="formatNumber()" placeholder="自动3位转换显示">
+
+</body>
+</html>
